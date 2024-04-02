@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
-public class Claim{
+public class Claim implements Comparable<Claim>{
     private String id; //(with the format f-numbers; 10 numbers)
     private Date claimDate;
     private Customer insuredPerson;
@@ -103,6 +104,27 @@ public class Claim{
     public void setReceiverBankingInfor(String receiverBankingInfor) {
         ReceiverBankingInfor = receiverBankingInfor;
     }
-}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Claim claim = (Claim) o;
+        return Objects.equals(id, claim.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+
+    @Override
+    public int compareTo(Claim o) {
+        return this.id.compareTo(o.id);
+    }
+    }
+
+
 
 
