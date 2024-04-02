@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 
 public abstract class Customer {
     private String CustomerID; //(with the format c-numbers; 7 numbers) ;
@@ -44,5 +45,32 @@ public abstract class Customer {
 
     public void setClaims(ArrayList<Claim> claims) {
         this.claims = claims;
+    }
+
+    public int compareTo(Customer customer){
+        return this.getCustomerID().compareTo(customer.getCustomerID());
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "CustomerID='" + CustomerID + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", InsuranceCard=" + InsuranceCard +
+                ", claims=" + claims +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(CustomerID, customer.CustomerID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(CustomerID);
     }
 }
