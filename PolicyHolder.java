@@ -22,9 +22,7 @@ public class PolicyHolder extends Customer {
 
     @Override
     public String toString() {
-        return "PolicyHolder{" +
-                "customer ID=" + getCustomerID() +
-                "dependents=" + dependents +
-                '}';
+        return  getCustomerID() + ":" + getFullName()+
+                dependents;
     }
 }

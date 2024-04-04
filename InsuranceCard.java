@@ -1,4 +1,7 @@
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class InsuranceCard {
     private String cardNumber; //10 digits
@@ -46,5 +49,29 @@ public class InsuranceCard {
 
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        InsuranceCard that = (InsuranceCard) o;
+        return Objects.equals(cardNumber, that.cardNumber);
+    }
+
+    @Override
+    public String toString() {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return "InsuranceCard{" +
+                "cardNumber=" + cardNumber  +
+                ", cardHolder=" + cardHolder.getCustomerID() +
+                ", policyOwner=" + policyOwner.getCustomerID() +
+                ", expirationDate=" + df.format(expirationDate) +
+                '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cardNumber);
     }
 }

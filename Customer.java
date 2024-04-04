@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 import java.util.Objects;
-
 public abstract class Customer {
     private String CustomerID; //(with the format c-numbers; 7 numbers) ;
     private String fullName;
     private InsuranceCard InsuranceCard;
-    private ArrayList<Claim> claims;
+    private ArrayList<Claim>claims = new ArrayList<>();
 
     public Customer(){};
+
     public Customer(String customerID, String fullName, InsuranceCard insuranceCard, ArrayList<Claim> claims) {
         CustomerID = customerID;
         this.fullName = fullName;
@@ -17,6 +17,7 @@ public abstract class Customer {
     public void addClaim(Claim claim){
         this.claims.add(claim);
     }
+
     public String getCustomerID() {
         return CustomerID;
     }
@@ -49,18 +50,8 @@ public abstract class Customer {
         this.claims = claims;
     }
 
-    public int compareTo(Customer customer){
-        return this.getCustomerID().compareTo(customer.getCustomerID());
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "CustomerID='" + CustomerID + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", InsuranceCard=" + InsuranceCard +
-                ", claims=" + claims +
-                '}';
+    public int compareTo(Customer o) {
+        return this.getCustomerID().compareTo(o.getCustomerID());
     }
 
     @Override

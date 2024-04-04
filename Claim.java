@@ -1,9 +1,11 @@
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
 public class Claim implements Comparable<Claim>{
-    private String id; //(with the format f-numbers; 10 numbers)
+    private  String id; //(with the format f-numbers; 10 numbers)
     private Date claimDate;
     private Customer insuredPerson;
 
@@ -17,9 +19,9 @@ public class Claim implements Comparable<Claim>{
 
     private String ReceiverBankingInfor; //(Bank-Name-Number)
 
-    public Claim() {
+    public Claim(){
 
-    }
+    };
 
     public Claim(String id, Date claimDate, Customer insuredPerson, int cardNumber, Date examDate, ArrayList<String> documents, double claimAmount, Status status, String receiverBankingInfor) {
         this.id = id;
@@ -33,6 +35,7 @@ public class Claim implements Comparable<Claim>{
         ReceiverBankingInfor = receiverBankingInfor;
     }
 
+
     public String getId() {
         return id;
     }
@@ -40,6 +43,7 @@ public class Claim implements Comparable<Claim>{
     public void setId(String id) {
         this.id = id;
     }
+
 
     public Date getClaimDate() {
         return claimDate;
@@ -106,6 +110,22 @@ public class Claim implements Comparable<Claim>{
     }
 
     @Override
+    public String toString() {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return "Claim{" +
+                "id= " + id  +
+                ", claimDate= " + df.format(claimDate )+
+                ", insuredPerson= " + insuredPerson.getFullName() +
+                ", cardNumber= " + cardNumber +
+                ", examDate= " + df.format(examDate) +
+                ", documents= " + documents +
+                ", claimAmount= " + claimAmount +
+                ", status= " + status +
+                ", ReceiverBankingInfor= '" + ReceiverBankingInfor + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -118,13 +138,8 @@ public class Claim implements Comparable<Claim>{
         return Objects.hash(id);
     }
 
-
     @Override
     public int compareTo(Claim o) {
         return this.id.compareTo(o.id);
     }
-    }
-
-
-
-
+}

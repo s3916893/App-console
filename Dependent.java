@@ -10,6 +10,7 @@ public class Dependent extends Customer{
 
     @Override
     public String toString() {
-        return "Dependent{}"+getCustomerID();
+        return getCustomerID() + ":"+getFullName();
     }
 }
+
