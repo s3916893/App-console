@@ -14,7 +14,9 @@ public abstract class Customer {
         InsuranceCard = insuranceCard;
         this.claims = claims;
     }
-
+    public void addClaim(Claim claim){
+        this.claims.add(claim);
+    }
     public String getCustomerID() {
         return CustomerID;
     }
