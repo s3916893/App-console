@@ -18,7 +18,15 @@ public class FileProcessing {
         this.claimManagementSystem = claimManagementSystem;
     }
 
-    void readCustomerFile() { //Read customer file
+    public static void main(String[] args) throws FileNotFoundException, ParseException {
+        ClaimManagementSystem claimManagementSystem1 = new ClaimManagementSystem();
+        FileProcessing fileProcessing = new FileProcessing(claimManagementSystem1);
+        fileProcessing.readCustomerFile();
+        fileProcessing.readClaim();
+        fileProcessing.readInsuranceCard();
+    }
+
+    void readCustomerFile() {
         try {
             File customerFile = new File("customers.csv");
             Scanner myReader = new Scanner(customerFile);
@@ -26,7 +34,7 @@ public class FileProcessing {
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 String[] line = data.split(COMMA_DELIMITER, -1);
-                if (line[2].equals("H")) { //Check if the customer is policyHolder or not
+                if (line[2].equals("H")) { //Check if the customer is policy holder or not
                     PolicyHolder policyHolder = new PolicyHolder();
                     policyHolder.setCustomerID(line[0]);
                     policyHolder.setFullName(line[1]);
@@ -35,7 +43,7 @@ public class FileProcessing {
                     Dependent dependent = new Dependent();
                     dependent.setCustomerID(line[0]);
                     dependent.setFullName(line[1]);
-                    claimManagementSystem.getCustomers().add(dependent); //Add dependents to dependent list
+                    claimManagementSystem.getCustomers().add(dependent);
                     for (Customer customer : claimManagementSystem.getCustomers()) {
                         if (customer.getCustomerID().equals(line[3])) {
                             if (customer instanceof PolicyHolder policyHolder) {
@@ -48,7 +56,7 @@ public class FileProcessing {
                     System.out.println("Re-enter the role of the customer of " + line[0]);
                 }
             }
-            claimManagementSystem.getCustomers().sort((a, b) -> a.compareTo(b)); //Sort the customer in order of the customer ID
+            claimManagementSystem.getCustomers().sort((a, b) -> a.compareTo(b));//Arrange the customer list in order of the customer ID
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
@@ -71,7 +79,7 @@ public class FileProcessing {
             insuranceCard.setCardNumber(words[0]);
             insuranceCard.setPolicyOwner(words[2]);
             Customer customer = null;
-            for (Customer c : claimManagementSystem.getCustomers()) { //Check the if the customer is the cardholder or not
+            for (Customer c : claimManagementSystem.getCustomers()) {
                 if (c.getCustomerID().equals(words[1])) {
                     customer = c;
                 }
@@ -104,7 +112,7 @@ public class FileProcessing {
             InsuranceCard insuranceCard = null;
             claim.setId(data[0]);
             claim.setClaimDate(claimDate);
-            for (Customer c : claimManagementSystem.getCustomers()) { //Check if there is the insured person or not
+            for (Customer c : claimManagementSystem.getCustomers()) {
                 if (c.getCustomerID().equals(data[2])) {
                     customer = c;
                 }
@@ -121,7 +129,7 @@ public class FileProcessing {
             claim.setDocuments(documents);
             claim.setClaimAmount(Double.parseDouble(data[6]));
             // Switch keyword
-            switch (data[7].charAt(0)) { //check the status of the claim
+            switch (data[7].charAt(0)) {
                 // Case statements
                 case 'N':
                     claim.setStatus(Status.NEW);
@@ -141,6 +149,8 @@ public class FileProcessing {
     }
 
     public void writeToFile() {
+        //id,claimDate,insuredPersonId,cardNumber,examDate,documents,claimAmount,status,receiverBankingInfo
+
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
             FileWriter myWriter = new FileWriter("claims.csv");
