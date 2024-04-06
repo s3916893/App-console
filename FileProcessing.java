@@ -17,15 +17,6 @@ public class FileProcessing {
     public FileProcessing(ClaimManagementSystem claimManagementSystem) {
         this.claimManagementSystem = claimManagementSystem;
     }
-
-    public static void main(String[] args) throws FileNotFoundException, ParseException {
-        ClaimManagementSystem claimManagementSystem1 = new ClaimManagementSystem();
-        FileProcessing fileProcessing = new FileProcessing(claimManagementSystem1);
-        fileProcessing.readCustomerFile();
-        fileProcessing.readClaim();
-        fileProcessing.readInsuranceCard();
-    }
-
     void readCustomerFile() {
         try {
             File customerFile = new File("customers.csv");
@@ -79,7 +70,7 @@ public class FileProcessing {
             insuranceCard.setCardNumber(words[0]);
             insuranceCard.setPolicyOwner(words[2]);
             Customer customer = null;
-            for (Customer c : claimManagementSystem.getCustomers()) {
+            for (Customer c : claimManagementSystem.getCustomers()) { //Find the card holder
                 if (c.getCustomerID().equals(words[1])) {
                     customer = c;
                 }
@@ -92,7 +83,6 @@ public class FileProcessing {
             claimManagementSystem.getInsuranceCards().add(insuranceCard);
             customer.setInsuranceCard(insuranceCard);
         }
-        System.out.println(claimManagementSystem.getInsuranceCards());
         myReader.close();
 
     }
@@ -112,7 +102,7 @@ public class FileProcessing {
             InsuranceCard insuranceCard = null;
             claim.setId(data[0]);
             claim.setClaimDate(claimDate);
-            for (Customer c : claimManagementSystem.getCustomers()) {
+            for (Customer c : claimManagementSystem.getCustomers()) { //Find the insured person
                 if (c.getCustomerID().equals(data[2])) {
                     customer = c;
                 }
@@ -129,7 +119,7 @@ public class FileProcessing {
             claim.setDocuments(documents);
             claim.setClaimAmount(Double.parseDouble(data[6]));
             // Switch keyword
-            switch (data[7].charAt(0)) {
+            switch (data[7].charAt(0)) { //Set the status of the claim
                 // Case statements
                 case 'N':
                     claim.setStatus(Status.NEW);
