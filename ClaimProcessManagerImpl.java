@@ -5,7 +5,6 @@ public class ClaimProcessManagerImpl implements ClaimProcessManager{
     public ClaimProcessManagerImpl(ClaimManagementSystem claimManagementSystem) {
         this.claimManagementSystem = claimManagementSystem;
     }
-
     @Override
     public void add(Claim claim) {
         ArrayList<Claim>claims = claimManagementSystem.getClaims();
@@ -19,29 +18,15 @@ public class ClaimProcessManagerImpl implements ClaimProcessManager{
             }
         }claims.add(claim);
     }
-
     @Override
     public void delete(Claim claim) {
         claimManagementSystem.getClaims().remove(claim);
     }
-
     @Override
     public void update(Claim claim) {
-        ArrayList<Claim>claims = claimManagementSystem.getClaims();
-        for (Claim cl: claims) {
-            if(cl.equals(claim)){
-                cl.setClaimDate(claim.getClaimDate());
-                cl.setInsuredPerson(claim.getInsuredPerson());
-                cl.setCardNumber(claim.getCardNumber());
-                cl.setExamDate(claim.getExamDate());
-                cl.setDocuments(claim.getDocuments());
-                cl.setClaimAmount(claim.getClaimAmount());
-                cl.setStatus(claim.getStatus());
-                cl.setReceiverBankingInfor(claim.getReceiverBankingInfor());
-            }
-        }
+        delete(claim);
+        add(claim);
     }
-
     @Override
     public Claim getOne(Claim claim) {
         int index = claimManagementSystem.getClaims().indexOf(claim);

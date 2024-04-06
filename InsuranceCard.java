@@ -6,13 +6,13 @@ import java.util.Objects;
 public class InsuranceCard {
     private String cardNumber; //10 digits
     private Customer cardHolder;
-    private PolicyHolder policyOwner;
+    private String policyOwner;
     private Date expirationDate;
 
     public InsuranceCard() {
     }
 
-    public InsuranceCard(String cardNumber, Customer cardHolder, PolicyHolder policyOwner, Date expirationDate) {
+    public InsuranceCard(String cardNumber, Customer cardHolder, String policyOwner, Date expirationDate) {
         this.cardNumber = cardNumber;
         this.cardHolder = cardHolder;
         this.policyOwner = policyOwner;
@@ -35,11 +35,11 @@ public class InsuranceCard {
         this.cardHolder = cardHolder;
     }
 
-    public PolicyHolder getPolicyOwner() {
+    public String getPolicyOwner() {
         return policyOwner;
     }
 
-    public void setPolicyOwner(PolicyHolder policyOwner) {
+    public void setPolicyOwner(String policyOwner) {
         this.policyOwner = policyOwner;
     }
 
@@ -65,7 +65,7 @@ public class InsuranceCard {
         return "InsuranceCard{" +
                 "cardNumber=" + cardNumber  +
                 ", cardHolder=" + cardHolder.getCustomerID() +
-                ", policyOwner=" + policyOwner.getCustomerID() +
+                ", policyOwner=" + policyOwner +
                 ", expirationDate=" + df.format(expirationDate) +
                 '}';
     }
