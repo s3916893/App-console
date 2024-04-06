@@ -9,7 +9,7 @@ public class Claim implements Comparable<Claim>{
     private Date claimDate;
     private Customer insuredPerson;
 
-    private int cardNumber;
+    private String cardNumber;
     private Date examDate;
 
     private ArrayList<String> documents; //(with the format ClaimId_CardNumber_DocumentName.pdf)
@@ -23,7 +23,7 @@ public class Claim implements Comparable<Claim>{
 
     };
 
-    public Claim(String id, Date claimDate, Customer insuredPerson, int cardNumber, Date examDate, ArrayList<String> documents, double claimAmount, Status status, String receiverBankingInfor) {
+    public Claim(String id, Date claimDate, Customer insuredPerson, String cardNumber, Date examDate, ArrayList<String> documents, double claimAmount, Status status, String receiverBankingInfor) {
         this.id = id;
         this.claimDate = claimDate;
         this.insuredPerson = insuredPerson;
@@ -61,11 +61,11 @@ public class Claim implements Comparable<Claim>{
         this.insuredPerson = insuredPerson;
     }
 
-    public int getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(int cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
